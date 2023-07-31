@@ -1,0 +1,157 @@
+TORNADO O PROJETO EXECUTAVEL
+--------------------------------
+
+Para transformar um projeto Electron em um arquivo executável .exe, você precisa criar um pacote de instalação para o seu aplicativo. Existem várias ferramentas que podem ajudá-lo a fazer isso, mas aqui estão os passos gerais para criar um pacote de instalação usando o Electron Forge:
+
+Certifique-se de ter o Node.js e o NPM (Node Package Manager) instalados em seu sistema.
+
+Instale o Electron Forge globalmente usando o seguinte comando no terminal ou prompt de comando:
+
+
+        ................................
+        npm install -g electron-forge
+        ................................
+
+
+Navegue até o diretório raiz do seu projeto Electron (onde está localizado o arquivo package.json).
+
+Inicialize o Electron Forge em seu projeto executando o seguinte comando:
+
+
+        ................................
+         electron-forge init
+        ................................
+
+
+Siga as instruções para configurar seu projeto, selecionando o modelo de empacotamento que você deseja usar (por exemplo, "squirrel" para Windows).
+
+No Windows (CMD):
+      .............................
+        set ELECTRON_IS_DEV=0
+        electron-forge make
+       .............................
+
+(PowerShell):
+     .............................
+        $env:ELECTRON_IS_DEV=0
+        electron-forge make
+     .............................
+
+Após a inicialização bem-sucedida, você pode construir o pacote de instalação executando o seguinte comando:
+go
+
+        ................................
+            electron-forge make
+        ................................
+
+
+Isso irá empacotar seu aplicativo Electron e criar o arquivo executável .exe (ou um pacote adequado para o sistema operacional em que você está construindo o pacote) na pasta out/ no diretório raiz do seu projeto.
+
+Se você selecionou o modelo "squirrel", o pacote criado incluirá um instalador que você pode executar para instalar o aplicativo no sistema.
+Observe que, para gerar pacotes executáveis para diferentes sistemas operacionais (Windows, macOS, Linux), você precisará executar o comando electron-forge make em cada sistema operacional para o qual deseja construir o pacote.
+
+
+
+
+MUDAR APOLITICA DE RESTRIÇAÕ DE SCRIPTS NO WINDOWS 10
+-------------------------------------------------------------
+https://answers.microsoft.com/pt-br/windows/forum/all/permitir-a-execu%C3%A7%C3%A3o-de-scripts-no/f6b195cf-0be7-46e2-b88c-358c79f78343
+
+    No poweshell:
+        ......................................
+        Set-ExecutionPolicy Unrestricted
+        ......................................
+    e pressione Enter e depois digite "S" para confirmar.
+
+
+TAMANHO DA MINHA JANELA
+---------------------------
+1366 x 604(navegador)
+1366 x 768(tela)
+--------------------------
+
+
+
+CRIAR ARQUIVO ELECTROM
+----------------------------------------
+-cria pasta do projeto, nela:
+-comados:
+   .....................
+        npm init
+
+        npm install --save-dev electron
+   .....................
+
+
+
+ESTRUTURA BASICA
+-----------------------------------
+PACKAGE.JSON:
+        {
+        "name": "jogo-mario-desk",
+        "version": "1.0.0",
+        "description": "",
+        "main": "index.js",
+        "scripts": {
+        "dev": "electron ."
+        },
+        "author": "",
+        "license": "ISC",
+        "devDependencies": {
+        "electron": "^25.3.2"
+        }
+        }
+..........................................................
+
+INDEX.JS: 
+        const { app, BrowserWindow } = require('electron');
+
+                let mainWindow;
+
+                app.on('ready', () => {
+                mainWindow = new BrowserWindow({
+                width: 1366,
+                height: 604,
+                resizable: false,
+
+                });
+
+                mainWindow.loadURL(`file://${__dirname}/index.html`);
+        });
+.............................................................................
+
+
+
+
+TESTAR
+--------------------------
+usar o comando que você definiu no package.json, ex:
+        {
+            "scripts": {
+            "start": "electron ."
+            }
+        }
+    ...................................
+
+Nesse caso o 'start':
+        ...............................
+           npm run start
+        ...............................
+
+
+
+
+TESTAR COMANDOS
+---------------------------------------------------------------------
+COLOCAR SEGUNTE CODIGO NO INDEX.JS(SÓ ENQUANTO ESTÁ DESENVOLVENDO):
+
+        const path = require('path');
+
+                require('electron-reload')(__dirname, {
+                electron: path.join(__dirname, 'index.html', 'index.js', 'imagens', 'css', 'js'),
+                hardResetMethod: 'exit',
+        });
+.................................................
+
+
+
